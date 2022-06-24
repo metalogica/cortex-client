@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../src/cortex-client.ts", "../src/index.ts"],
+  "sourcesContent": ["class CortexClient {\n  constructor(options: CortexClient) {\n    console.log('cortex client class fired', options);\n  }\n}\n\nexport default (options: CortexClient) => new CortexClient(options);\n", "import cortexClient from './cortex-client';\n\nconst ws = new WebSocket('wss://localhost:6868');\n\nws.addEventListener('open', () => {\n  const cortex = cortexClient({\n    headset: 'test',\n  });\n  console.log(cortex);\n\n  ws.send(\n    JSON.stringify({\n      id: 1,\n      jsonrpc: 2.0,\n      method: 'getUserLogin',\n    })\n  );\n});\n\nconsole.log('main script completed.');\n"],
+  "mappings": "mBAAA,GAAM,GAAN,KAAmB,CACjB,YAAY,EAAuB,CACjC,QAAQ,IAAI,4BAA6B,CAAO,CAClD,CACF,EAEO,EAAQ,AAAC,GAA0B,GAAI,GAAa,CAAO,ECJlE,GAAM,GAAK,GAAI,WAAU,sBAAsB,EAE/C,EAAG,iBAAiB,OAAQ,IAAM,CAChC,GAAM,GAAS,EAAa,CAC1B,QAAS,MACX,CAAC,EACD,QAAQ,IAAI,CAAM,EAElB,EAAG,KACD,KAAK,UAAU,CACb,GAAI,EACJ,QAAS,EACT,OAAQ,cACV,CAAC,CACH,CACF,CAAC,EAED,QAAQ,IAAI,wBAAwB",
+  "names": []
+}

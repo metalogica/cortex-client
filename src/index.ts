@@ -1,24 +1,20 @@
-console.log('Try npm run lint/fix!');
+import cortexClient from './cortex-client';
 
-const longString =
-  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut aliquet diam.';
+const ws = new WebSocket('wss://localhost:6868');
 
-const trailing = 'Semicolon';
+ws.addEventListener('open', () => {
+  const cortex = cortexClient({
+    headset: 'test',
+  });
+  console.log(cortex);
 
-const why = 'am I tabbed?';
+  ws.send(
+    JSON.stringify({
+      id: 1,
+      jsonrpc: 2.0,
+      method: 'getUserLogin',
+    })
+  );
+});
 
-export function doSomeStuff(
-  withThis: string,
-  andThat: string,
-  andThose: string[]
-) {
-  //function on one line
-  if (!andThose.length) {
-    return false;
-  }
-  console.log(withThis);
-  console.log(andThat);
-  console.dir(andThose);
-  return;
-}
-// TODO: more examples
+console.log('main script completed.');
