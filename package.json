@@ -18,7 +18,8 @@
     "serve": "live-server example",
     "lint": "gts fix src",
     "build": "rm -rf ./dist && tsc",
-    "test": "jest --config jest.config.json --watch --collectCoverageFrom=\"./src/\""
+    "test": "jest --config jest.config.json",
+    "test:watch": "jest --config jest.config.json --watch"
   },
   "devDependencies": {
     "@types/jest": "^28.1.3",
