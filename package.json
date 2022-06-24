@@ -17,13 +17,17 @@
     "watch": "esbuild src/index.ts --bundle --outfile=example/index.js --watch --sourcemap --minify --target=es2016",
     "serve": "live-server example",
     "lint": "gts fix",
-    "build": "rm -rf ./dist && tsc"
+    "build": "rm -rf ./dist && tsc",
+    "test": "jest --config jest.config.json --watch --coverage"
   },
   "devDependencies": {
+    "@types/jest": "^28.1.3",
     "@types/node": "^14.11.2",
     "esbuild": "^0.14.47",
     "gts": "^3.1.0",
+    "jest": "^28.1.1",
     "live-server": "^1.2.2",
+    "ts-jest": "^28.0.5",
     "ts-loader": "^9.3.1",
     "typescript": "^4.0.3"
   }
