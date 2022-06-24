@@ -16,9 +16,9 @@
   "scripts": {
     "watch": "esbuild src/index.ts --bundle --outfile=example/index.js --watch --sourcemap --minify --target=es2016",
     "serve": "live-server example",
-    "lint": "gts fix",
+    "lint": "gts fix src",
     "build": "rm -rf ./dist && tsc",
-    "test": "jest --config jest.config.json --watch --coverage"
+    "test": "jest --config jest.config.json --watch --collectCoverageFrom=\"./src/\""
   },
   "devDependencies": {
     "@types/jest": "^28.1.3",
