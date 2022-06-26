@@ -45,6 +45,7 @@ class CortexHandler {
     if (cortexToken) {
       this.cortexToken = cortexToken;
 
+      this._updateSessionStorage({cortexToken});
       this._getSessionId();
     }
 
@@ -53,6 +54,7 @@ class CortexHandler {
     if (sessionId) {
       this.sessionId = sessionId;
 
+      this._updateSessionStorage({sessionId});
       this._getStream();
     }
 
@@ -103,6 +105,12 @@ class CortexHandler {
     };
 
     this.send(message);
+  }
+
+  _updateSessionStorage(option) {
+    for (const [key, value] of Object.entries(option)) {
+      localStorage.setItem(key, value);
+    }
   }
 }
 
