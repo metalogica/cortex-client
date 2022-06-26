@@ -90,23 +90,6 @@ class CortexHandler {
     this.send(message);
   }
 
-  async _send({message}) {
-    await this.ws.send(JSON.stringify(message));
-  }
-
-  async _getCortexToken() {
-    const message = {
-      id: 1,
-      jsonrpc: '2.0',
-      method: 'authorize',
-      params: {
-        clientId: this.clientId,
-        clientSecret: this.clientSecret,
-        debit: 1,
-      },
-    };
-  }
-
   async _getSessionId() {
     const message = {
       id: 1,

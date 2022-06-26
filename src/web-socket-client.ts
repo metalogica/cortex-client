@@ -5,6 +5,12 @@ export class WebSocketClient extends WebSocket {
     super(url);
 
     this.cortexHandler = new CortexHandler({...options, webSocketClient: this});
+
+    this.clientId = options.clientId;
+    this.clientSecret = options.clientSecret;
+    this.cortexToken = undefined;
+    this.sessionId = undefined;
+    this.headset = options.headset;
   }
 
   onopen = function (message) {
