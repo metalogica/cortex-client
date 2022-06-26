@@ -1,20 +1,26 @@
-import cortexClient from './cortex-client';
+import Cortex from './cortex';
 
-const ws = new WebSocket('wss://localhost:6868');
+const cortex = Cortex({
+  url: 'wss://localhost:6868',
+  headset: 'EPOCX-E202014A',
+  clientId: 'OagQZeyXwrYoSwQt4JGtGL7HX22U2vJQDnpW6sOK',
+  clientSecret:
+    'WNhMfomUciXSJovRXPYEnPZrHq5ETDvR73FVSxlBMRHXbrfBm6q0z0W6l07oj7BchXcVmWQ6Yvd31ipR6ybn6lfxx8aNJjcnSNrBa0M5PUuuxC9BvEocGCjdJsG41nv2',
 
-ws.addEventListener('open', () => {
-  const cortex = cortexClient({
-    headset: 'test',
-  });
-  console.log(cortex);
-
-  ws.send(
-    JSON.stringify({
-      id: 1,
-      jsonrpc: 2.0,
-      method: 'getUserLogin',
-    })
-  );
+  callbacks: [
+    {
+      name: 'neutral',
+      action: ({name, magnitude}) =>
+        console.log('CallbackFn: it fired: neutral', name, magnitude + 5),
+    },
+    {
+      name: 'lift',
+      action: ({name, magnitude}) =>
+        console.log('Callback: it fired: lift', name, magnitude),
+    },
+  ],
 });
 
-console.log('main script completed.');
+console.log('cortex class: ', cortex);
+
+cortex.stream();

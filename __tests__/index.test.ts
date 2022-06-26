@@ -1,67 +1,50 @@
-import sinon from 'sinon';
 import CortexClient from '../src/cortex-client';
 
 describe('Cortex Client', () => {
-  // import WebSocketServerMock from 'mock-server';
-  let mockCortexWebsocketServer;
-
   describe('Data streaming', () => {
-    describe('Step 1/3: Requesting a Cortex Token', () => {
+    test('it should make a call to the websocket client on the start of a stream', () => {
+      const websocketSpy = jest.spyOn(CortexClient, '_send');
+
       const config = {
-        clientId: 'id',
-        clientSecret: 'secret',
+        clientId: '',
+        clientSecret: '',
         headset: 'EPOCX-E202014A',
+        url: 'wss://loclahost:6868',
+
+        commands: [
+          {
+            name: 'neutral',
+            callback: magnitude => console.log('it fired: lift', magnitude),
+          },
+          {
+            name: 'lift',
+            callback: magnitude => console.log('it fired: lift', magnitude),
+          },
+        ],
       };
 
-      beforeEach(() => {
-        // TODO: mock ws:// server
-        sinon
-          .stub(mockCortexWebsocketServer, 'onMessage')
-          .returns({cortexToken: 'some-token'});
-      });
+      const cortexClient = CortexClient(config).stream();
 
-      test('it should request a session token', async () => {
-        const client = CortexClient(config);
-
-        await client._getCortexToken();
-
-        expect(client.cortexToken).toBe('some-token');
-      });
-
-      test('it should throw an error if the right config is not provided', () => {
-        const client = CortexClient();
-
-        expect(client._getCortexToken()).toThrow();
+      expect(websocketSpy).toHaveBeenCalledWith({
+        id: 1,
+        jsonrpc: '2.0',
+        method: 'authorize',
+        params: {
+          clientId: config.clientId,
+          clientSecret: config.clientSecret,
+          debit: 1,
+        },
       });
     });
 
-    test('it should create a new session', () => {
-      const client = CortexClient(config);
-      client.cortexToken = 'eySomeToken=';
+    describe('Step 1/3: Requesting a Cortex Token', () => {});
 
-      expect(client._getSessionId()).toBe('session-id-123');
-    });
+    test('it should create a new session', () => {});
 
-    test('it should subscribe to a mental command stream', () => {
-      const client = CortexClient(config);
-      client.cortexToken = 'some token';
-      client.sessionId = 'session-id-123';
-
-      expect(client.stream()).toBe(true);
-    });
+    test('it should subscribe to a mental command stream', () => {});
   });
 
   describe('DOM manipulation', () => {
-    const config = {
-      ui: true,
-    };
-
-    test('it should render in the DOM when specified', () => {
-      CortexClient(config);
-
-      const userInterface;
-
-      expect(userInterface).toBeTruthy();
-    });
+    test('it should render in the DOM when specified', () => {});
   });
 });
