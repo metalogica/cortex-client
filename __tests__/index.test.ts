@@ -9,7 +9,7 @@ describe('Cortex Client', () => {
         clientId: '',
         clientSecret: '',
         headset: 'EPOCX-E202014A',
-        url: 'wss://loclahost:6868',
+        url: 'wss://localhost:6868',
 
         commands: [
           {

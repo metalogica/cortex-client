@@ -11,7 +11,7 @@ const cortex = Cortex({
     {
       name: 'neutral',
       action: ({name, magnitude}) =>
-        console.log('CallbackFn: it fired: neutral', name, magnitude + 5),
+        console.log('CallbackFn: it fired: neutral', name, magnitude + 50),
     },
     {
       name: 'lift',
