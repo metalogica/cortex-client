@@ -44,7 +44,7 @@ describe('Cortex Client', () => {
     test('it should subscribe to a mental command stream', () => {});
   });
 
-  describe('DOM manipulation', () => {
+  describe('DOM manipulation.', () => {
     test('it should render in the DOM when specified', () => {});
   });
 });
